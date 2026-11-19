@@ -37,10 +37,10 @@ final class AnalyzeCommandTest extends FunctionalTestCase
         $runs = self::runs();
         self::assertCount(7, $runs);
         self::assertSame(AiAction::AnalyzeBlocks, $runs[0]->getAction());
-        self::assertSame('Describe the template "landing"', $runs[0]->prompt);
+        self::assertSame('Describe the template "default"', $runs[0]->prompt);
         self::assertStringContainsString('"key": "hero"', self::script()->prompt(4));
         self::assertStringContainsString('"shows_snippets_of_template": [', self::script()->prompt(3));
-        self::assertStringContainsString('"lists_automatically": "pages"', self::script()->prompt(0));
+        self::assertStringContainsString('"lists_automatically": "pages"', self::script()->prompt(1));
     }
 
     public function testASecondRunOnlyDescribesWhatIsNewAndKeepsWhatAPersonWrote(): void
@@ -117,7 +117,7 @@ final class AnalyzeCommandTest extends FunctionalTestCase
         $tester = $this->analyze(['--form' => ['page']]);
 
         self::assertSame(1, $tester->getStatusCode());
-        self::assertMatchesRegularExpression('/page\/landing\s+failed/', $tester->getDisplay());
+        self::assertMatchesRegularExpression('/page\/default\s+failed/', $tester->getDisplay());
         self::assertNotNull($this->catalog()->block('hero'));
     }
 

@@ -63,7 +63,7 @@ final class PlannerApiTest extends FunctionalTestCase
         self::assertSame([], Json::at($turn, 'reply.warnings'));
 
         $prompt = self::script()->lastPrompt();
-        self::assertStringContainsString('plan item 2 ("Cakes"): the template "cakes" does not exist; use one of: landing, default.', $prompt);
+        self::assertStringContainsString('plan item 2 ("Cakes"): the template "cakes" does not exist; use one of: default, landing.', $prompt);
         self::assertStringContainsString('plan item 3 ("Catering"): the page "made-up" does not exist', $prompt);
         self::assertStringContainsString('you plan several new pages of a website at once', $prompt);
         self::assertStringContainsString('  - Our services (/our-services, template landing, uuid '.$this->services.')', $prompt);
@@ -165,8 +165,8 @@ final class PlannerApiTest extends FunctionalTestCase
         self::assertResponseIsSuccessful();
 
         self::assertSame([
-            ['key' => 'landing', 'title' => 'Landing page', 'route' => ['name' => 'url', 'type' => 'route', 'parts' => ['title']]],
             ['key' => 'default', 'title' => 'Default', 'route' => ['name' => 'url', 'type' => 'route', 'parts' => ['title']]],
+            ['key' => 'landing', 'title' => 'Landing page', 'route' => ['name' => 'url', 'type' => 'route', 'parts' => ['title']]],
         ], Json::at($this->json(), 'templates'));
         self::assertSame(['Website', 'Our services'], array_column(Json::array($this->json(), 'pages'), 'title'));
         self::assertSame(1, Json::at($this->json(), 'pages.1.depth'));
@@ -179,7 +179,7 @@ final class PlannerApiTest extends FunctionalTestCase
         // any other plan can create the page its items go below
         $this->client->jsonRequest('GET', '/admin/api/ai-content/plan-options?formKey=snippet&locale=en&webspace=website&templateKeys=faq');
         self::assertSame(['faq'], array_column(Json::array($this->json(), 'templates'), 'key'));
-        self::assertSame(['landing', 'default'], array_column(Json::array($this->json(), 'pageTemplates'), 'key'));
+        self::assertSame(['default', 'landing'], array_column(Json::array($this->json(), 'pageTemplates'), 'key'));
         self::assertSame(['name' => 'url', 'type' => 'route', 'parts' => ['title']], Json::at($this->json(), 'pageTemplates.0.route'));
     }
 
@@ -207,7 +207,7 @@ final class PlannerApiTest extends FunctionalTestCase
 
         $prompt = self::script()->lastPrompt();
         self::assertStringContainsString('plan item 1 ("Blog"): "landing" is a page template; a page is a plan item of its own with "kind": "page" and a "key".', $prompt);
-        self::assertStringContainsString("## Page templates\n\nOnly for the one page that holds the snippets.\n\n- landing: Landing page", $prompt);
+        self::assertStringContainsString("## Page templates\n\nOnly for the one page that holds the snippets.\n\n- default: Default\n- landing: Landing page", $prompt);
         self::assertStringContainsString('That overview is always a page, never a snippet. Never plan it with a snippet template.', $prompt);
     }
 

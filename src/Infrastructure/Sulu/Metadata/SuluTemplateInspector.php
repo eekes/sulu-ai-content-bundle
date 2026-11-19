@@ -47,6 +47,9 @@ final class SuluTemplateInspector implements TemplateInspectorInterface
             $templates[] = new TypeDescription((string) $key, $form->getTitle($locale), $this->describeItems($form->getItems(), $locale));
         }
 
+        // Sulu lists the templates in filesystem order, which differs between systems: sort them so prompts and lists are stable
+        usort($templates, static fn (TypeDescription $a, TypeDescription $b): int => strcmp($a->key, $b->key));
+
         return $templates;
     }
 
