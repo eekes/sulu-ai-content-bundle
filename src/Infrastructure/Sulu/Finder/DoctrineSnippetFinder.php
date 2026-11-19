@@ -6,13 +6,16 @@ namespace Eekes\Sulu\AiContentBundle\Infrastructure\Sulu\Finder;
 
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Eekes\Sulu\AiContentBundle\Application\Assistant\AssistantScope;
 use Eekes\Sulu\AiContentBundle\Application\Content\SnippetFinderInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
 use Sulu\Snippet\Domain\Model\SnippetDimensionContentInterface;
+use Sulu\Snippet\Infrastructure\Sulu\Admin\SnippetAdmin;
 
 /**
  * Reads snippets from Sulu 3's content tables: the draft in the requested locale, so snippets
- * that are not published yet can be reused too.
+ * that are not published yet can be reused too. The search is limited to what the editor of the run
+ * may view; looking up the templates of given ids is not, it only checks what the model sends back.
  */
 final class DoctrineSnippetFinder implements SnippetFinderInterface
 {
@@ -23,11 +26,17 @@ final class DoctrineSnippetFinder implements SnippetFinderInterface
 
     public function __construct(
         private readonly ManagerRegistry $registry,
+        private readonly SuluPermissions $permissions,
+        private readonly AssistantScope $scope,
     ) {
     }
 
     public function search(string $query, string $locale, array $templateKeys = [], int $limit = 15): array
     {
+        if (!$this->permissions->canView($this->scope->getUserId(), SnippetAdmin::SECURITY_CONTEXT, $locale)) {
+            return [];
+        }
+
         $queryBuilder = $this->queryBuilder()
             ->select('snippet.uuid AS uuid', 'content.title AS title', 'content.templateKey AS template', 'content.templateData AS data')
             ->where('content.locale = :locale')

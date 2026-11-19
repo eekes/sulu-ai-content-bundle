@@ -29,7 +29,10 @@ class FactMemory
      */
     public function remember(Conversation $conversation, array $answers): int
     {
-        $facts = array_filter($answers, static fn (array $answer) => $answer['remember'] && trim($answer['answer']) !== '');
+        // the answers come from the browser: only keep those to a question the assistant asked in its
+        // latest reply and marked "remember" itself, so a request cannot write any fact it likes
+        $asked = self::questionsToRemember($conversation);
+        $facts = array_filter($answers, static fn (array $answer) => $answer['remember'] && \in_array(trim($answer['question']), $asked, true) && trim($answer['answer']) !== '');
 
         // without a webspace there is no AI context to keep them in; an editor who does not work in
         // the webspace does not write to its context
@@ -47,5 +50,26 @@ class FactMemory
         $this->contextRepository->save($context);
 
         return \count($facts);
+    }
+
+    /**
+     * The questions of the latest assistant reply that are marked "remember".
+     *
+     * @return list<string>
+     */
+    private static function questionsToRemember(Conversation $conversation): array
+    {
+        $assistantMessages = array_filter($conversation->getMessages(), static fn (array $message) => $message['role'] === 'assistant');
+        $latest = end($assistantMessages);
+        $questions = $latest === false ? null : ($latest['reply']['questions'] ?? null);
+        $asked = [];
+
+        foreach (\is_array($questions) ? $questions : [] as $question) {
+            if (\is_array($question) && ($question['remember'] ?? false) === true && \is_string($question['question'] ?? null)) {
+                $asked[] = trim($question['question']);
+            }
+        }
+
+        return $asked;
     }
 }

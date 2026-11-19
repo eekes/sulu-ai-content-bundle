@@ -14,6 +14,7 @@ use Sulu\Bundle\SecurityBundle\Entity\Role;
 use Sulu\Bundle\SecurityBundle\Entity\User;
 use Sulu\Bundle\SecurityBundle\Entity\UserRole;
 use Sulu\Bundle\TestBundle\Testing\SuluTestCase;
+use Sulu\Snippet\Infrastructure\Sulu\Admin\SnippetAdmin;
 
 /**
  * Boots the test application - Sulu's own test kernel plus this bundle - against a real database,
@@ -50,8 +51,8 @@ abstract class FunctionalTestCase extends SuluTestCase
             unlink($catalog);
         }
 
-        // the assistant reads only the pages and media its editor may see
-        self::giveTestUserRole('Editor', ['sulu.webspaces.website' => 127, 'sulu.media.collections' => 127]);
+        // the assistant reads only the pages, media and snippets its editor may see
+        self::giveTestUserRole('Editor', ['sulu.webspaces.website' => 127, 'sulu.media.collections' => 127, SnippetAdmin::SECURITY_CONTEXT => 127]);
     }
 
     /**
