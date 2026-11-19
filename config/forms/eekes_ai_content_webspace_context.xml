@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>eekes_ai_content_webspace_context</key>
+
+    <properties>
+        <section name="website">
+            <meta>
+                <title lang="en">The website</title>
+                <title lang="nl">De website</title>
+                <title lang="de">Die Website</title>
+                <title lang="fr">Le site</title>
+            </meta>
+            <properties>
+                <property name="siteDescription" type="text_area">
+                    <meta>
+                        <title lang="en">What is this website?</title>
+                        <title lang="nl">Wat is deze website?</title>
+                        <title lang="de">Was ist diese Website?</title>
+                        <title lang="fr">Qu'est-ce que ce site ?</title>
+                        <info_text lang="en">The organisation, what it offers, what makes it different, and what the website should achieve.</info_text>
+                        <info_text lang="nl">De organisatie, wat ze aanbiedt, wat ze anders maakt en wat de website moet bereiken.</info_text>
+                        <info_text lang="de">Die Organisation, ihr Angebot, was sie auszeichnet und was die Website erreichen soll.</info_text>
+                        <info_text lang="fr">L'organisation, son offre, ce qui la distingue et ce que le site doit accomplir.</info_text>
+                    </meta>
+                </property>
+                <property name="audience" type="text_area">
+                    <meta>
+                        <title lang="en">Who reads it?</title>
+                        <title lang="nl">Wie leest mee?</title>
+                        <title lang="de">Wer liest sie?</title>
+                        <title lang="fr">Qui le lit ?</title>
+                        <info_text lang="en">The visitors: who they are, what they know already and what they come for.</info_text>
+                        <info_text lang="nl">De bezoekers: wie ze zijn, wat ze al weten en waarvoor ze komen.</info_text>
+                        <info_text lang="de">Die Besucher: wer sie sind, was sie schon wissen und wozu sie kommen.</info_text>
+                        <info_text lang="fr">Les visiteurs : qui ils sont, ce qu'ils savent déjà et ce qu'ils viennent chercher.</info_text>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <section name="voice">
+            <meta>
+                <title lang="en">Voice</title>
+                <title lang="nl">Stem</title>
+                <title lang="de">Stimme</title>
+                <title lang="fr">Ton</title>
+            </meta>
+            <properties>
+                <property name="toneOfVoice" type="text_area">
+                    <meta>
+                        <title lang="en">Tone of voice</title>
+                        <title lang="nl">Tone of voice</title>
+                        <title lang="de">Tonalität</title>
+                        <title lang="fr">Ton de voix</title>
+                        <info_text lang="en">How the website sounds: formal or casual, "you" or "we", short or explanatory.</info_text>
+                        <info_text lang="nl">Hoe de website klinkt: formeel of losser, "je" of "u", kort of uitleggend.</info_text>
+                        <info_text lang="de">Wie die Website klingt: förmlich oder locker, "du" oder "Sie", knapp oder erklärend.</info_text>
+                        <info_text lang="fr">Comment sonne le site : formel ou détendu, « tu » ou « vous », concis ou explicatif.</info_text>
+                    </meta>
+                </property>
+                <property name="writingGuidelines" type="text_area">
+                    <meta>
+                        <title lang="en">Writing guidelines</title>
+                        <title lang="nl">Schrijfrichtlijnen</title>
+                        <title lang="de">Schreibrichtlinien</title>
+                        <title lang="fr">Règles d'écriture</title>
+                        <info_text lang="en">House rules: sentence length, headings, numbers, capitals, calls to action.</info_text>
+                        <info_text lang="nl">Huisregels: zinslengte, titels, cijfers, hoofdletters, calls to action.</info_text>
+                        <info_text lang="de">Hausregeln: Satzlänge, Überschriften, Zahlen, Großschreibung, Calls to Action.</info_text>
+                        <info_text lang="fr">Règles maison : longueur des phrases, titres, chiffres, majuscules, appels à l'action.</info_text>
+                    </meta>
+                </property>
+                <property name="wordsToUse" type="text_area" colspan="6">
+                    <meta>
+                        <title lang="en">Words to use</title>
+                        <title lang="nl">Woorden om te gebruiken</title>
+                        <title lang="de">Bevorzugte Wörter</title>
+                        <title lang="fr">Mots à utiliser</title>
+                    </meta>
+                </property>
+                <property name="wordsToAvoid" type="text_area" colspan="6">
+                    <meta>
+                        <title lang="en">Words to avoid</title>
+                        <title lang="nl">Woorden om te vermijden</title>
+                        <title lang="de">Zu vermeidende Wörter</title>
+                        <title lang="fr">Mots à éviter</title>
+                    </meta>
+                </property>
+                <property name="glossary" type="text_area">
+                    <meta>
+                        <title lang="en">Glossary</title>
+                        <title lang="nl">Woordenlijst</title>
+                        <title lang="de">Glossar</title>
+                        <title lang="fr">Glossaire</title>
+                        <info_text lang="en">Product names, terms and how to write them, one per line.</info_text>
+                        <info_text lang="nl">Productnamen, termen en hoe je ze schrijft, één per regel.</info_text>
+                        <info_text lang="de">Produktnamen, Begriffe und ihre Schreibweise, einer pro Zeile.</info_text>
+                        <info_text lang="fr">Noms de produits, termes et leur orthographe, un par ligne.</info_text>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <section name="facts">
+            <meta>
+                <title lang="en">Known facts</title>
+                <title lang="nl">Gekende feiten</title>
+                <title lang="de">Bekannte Fakten</title>
+                <title lang="fr">Faits connus</title>
+                <info_text lang="en">What editors told the assistant when it asked - the company name, the year it was founded, opening hours. They go along with every request. Correct or remove what is out of date.</info_text>
+                <info_text lang="nl">Wat redacteurs de assistent vertelden toen hij erom vroeg - de bedrijfsnaam, het oprichtingsjaar, openingsuren. Ze gaan mee met elke vraag. Verbeter of verwijder wat niet meer klopt.</info_text>
+                <info_text lang="de">Was Redakteure dem Assistenten auf seine Fragen geantwortet haben - Firmenname, Gründungsjahr, Öffnungszeiten. Sie gehen mit jeder Anfrage mit. Korrigieren oder entfernen Sie, was nicht mehr stimmt.</info_text>
+                <info_text lang="fr">Ce que les rédacteurs ont répondu à l'assistant - le nom de l'entreprise, l'année de fondation, les horaires. Ils accompagnent chaque demande. Corrigez ou supprimez ce qui n'est plus à jour.</info_text>
+            </meta>
+            <properties>
+                <block name="facts" default-type="fact" minOccurs="0">
+                    <meta>
+                        <title lang="en">Facts</title>
+                        <title lang="nl">Feiten</title>
+                        <title lang="de">Fakten</title>
+                        <title lang="fr">Faits</title>
+                    </meta>
+                    <types>
+                        <type name="fact">
+                            <meta>
+                                <title lang="en">Fact</title>
+                                <title lang="nl">Feit</title>
+                                <title lang="de">Fakt</title>
+                                <title lang="fr">Fait</title>
+                            </meta>
+                            <properties>
+                                <property name="question" type="text_line" mandatory="true" colspan="6">
+                                    <meta>
+                                        <title lang="en">Question</title>
+                                        <title lang="nl">Vraag</title>
+                                        <title lang="de">Frage</title>
+                                        <title lang="fr">Question</title>
+                                    </meta>
+                                </property>
+                                <property name="answer" type="text_line" mandatory="true" colspan="6">
+                                    <meta>
+                                        <title lang="en">Answer</title>
+                                        <title lang="nl">Antwoord</title>
+                                        <title lang="de">Antwort</title>
+                                        <title lang="fr">Réponse</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </block>
+            </properties>
+        </section>
+
+        <section name="examples">
+            <meta>
+                <title lang="en">Examples and more</title>
+                <title lang="nl">Voorbeelden en meer</title>
+                <title lang="de">Beispiele und mehr</title>
+                <title lang="fr">Exemples et plus</title>
+            </meta>
+            <properties>
+                <property name="examplePages" type="page_selection">
+                    <meta>
+                        <title lang="en">Example pages</title>
+                        <title lang="nl">Voorbeeldpagina's</title>
+                        <title lang="de">Beispielseiten</title>
+                        <title lang="fr">Pages d'exemple</title>
+                        <info_text lang="en">Pages that read exactly as the website should. The assistant reads them before it writes.</info_text>
+                        <info_text lang="nl">Pagina's die lezen zoals de website hoort te lezen. De assistent leest ze voor hij schrijft.</info_text>
+                        <info_text lang="de">Seiten, die genau so klingen, wie die Website klingen soll. Der Assistent liest sie, bevor er schreibt.</info_text>
+                        <info_text lang="fr">Des pages qui se lisent exactement comme le site doit se lire. L'assistant les lit avant d'écrire.</info_text>
+                    </meta>
+                </property>
+                <property name="extraInstructions" type="text_area">
+                    <meta>
+                        <title lang="en">Further instructions</title>
+                        <title lang="nl">Extra instructies</title>
+                        <title lang="de">Weitere Anweisungen</title>
+                        <title lang="fr">Instructions supplémentaires</title>
+                        <info_text lang="en">Anything else the assistant should always keep in mind.</info_text>
+                        <info_text lang="nl">Al de rest waar de assistent altijd rekening mee moet houden.</info_text>
+                        <info_text lang="de">Alles andere, was der Assistent immer beachten soll.</info_text>
+                        <info_text lang="fr">Tout ce que l'assistant doit toujours garder à l'esprit.</info_text>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</form>

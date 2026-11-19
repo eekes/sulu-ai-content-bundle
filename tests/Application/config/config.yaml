@@ -1,0 +1,40 @@
+framework:
+    session:
+        storage_factory_id: session.storage.factory.mock_file
+
+sulu_admin:
+    icon_sets:
+        test: 'svg://%kernel.project_dir%/config/icons'
+
+eekes_sulu_ai_content:
+    platform: 'eekes_test.platform'
+    models:
+        smart:
+            model: 'test-smart-1'
+            label: 'Smart'
+        fast: 'test-fast-1'
+    catalog_path: '%kernel.project_dir%/var/catalog.yaml'
+    pricing:
+        currency: EUR
+        models:
+            test-smart: { input: 3.0, output: 15.0, cache_read: 0.3, cache_write: 3.75 }
+    budget:
+        monthly: 5
+
+services:
+    _defaults:
+        autowire: true
+        public: false
+
+    # What "the model" answers is up to the test: see ModelScript.
+    Eekes\Sulu\AiContentBundle\Tests\Double\ModelScript:
+        public: true
+
+    eekes_test.platform:
+        class: Symfony\AI\Platform\PlatformInterface
+        factory: ['Eekes\Sulu\AiContentBundle\Tests\Double\ModelScript', 'createPlatform']
+        arguments: ['@Eekes\Sulu\AiContentBundle\Tests\Double\ModelScript']
+
+    # A tool of the application, registered the way a consuming project would.
+    Eekes\Sulu\AiContentBundle\Tests\Application\Tool\OpeningHoursTool:
+        tags: ['eekes_sulu_ai_content.tool']

@@ -1,0 +1,31 @@
+.markdown {
+    p {
+        margin: 0 0 6px;
+    }
+
+    ul,
+    ol {
+        margin: 0 0 8px;
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 2px;
+    }
+
+    code {
+        padding: 0 4px;
+        border-radius: 3px;
+        background: rgba(0, 0, 0, .06);
+        font-size: 12px;
+    }
+
+    a {
+        color: #112a46;
+        text-decoration: underline;
+    }
+}
+
+.heading {
+    font-weight: bold;
+}

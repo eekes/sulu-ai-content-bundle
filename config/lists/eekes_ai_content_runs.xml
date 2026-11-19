@@ -1,0 +1,163 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>eekes_ai_content_runs</key>
+
+    <!-- A run keeps the id of its user rather than a relation, so deleting a user leaves the usage log intact. -->
+    <joins name="user">
+        <join>
+            <entity-name>%sulu.model.user.class%</entity-name>
+            <field-name>%sulu.model.user.class%</field-name>
+            <method>LEFT</method>
+            <condition>%sulu.model.user.class%.id = Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun.userId</condition>
+        </join>
+        <join>
+            <entity-name>%sulu.model.contact.class%</entity-name>
+            <field-name>%sulu.model.user.class%.contact</field-name>
+            <method>LEFT</method>
+        </join>
+    </joins>
+
+    <properties>
+        <property name="id" visibility="no" translation="sulu_admin.id">
+            <field-name>id</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="createdAt" visibility="always" sortable="true" translation="sulu_admin.created">
+            <field-name>createdAt</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+            <transformer type="datetime"/>
+            <filter type="datetime"/>
+        </property>
+
+        <property name="action" visibility="always" translation="eekes_ai_content.action">
+            <field-name>action</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+            <transformer type="translation">
+                <params>
+                    <param name="prefix" value="eekes_ai_content.action."/>
+                </params>
+            </transformer>
+            <filter type="select">
+                <params>
+                    <param name="options" type="collection">
+                        <param name="create_page" value="eekes_ai_content.action.create_page"/>
+                        <param name="rewrite_page" value="eekes_ai_content.action.rewrite_page"/>
+                        <param name="rewrite_block" value="eekes_ai_content.action.rewrite_block"/>
+                        <param name="seo" value="eekes_ai_content.action.seo"/>
+                        <param name="translate" value="eekes_ai_content.action.translate"/>
+                        <param name="chat" value="eekes_ai_content.action.chat"/>
+                        <param name="plan_pages" value="eekes_ai_content.action.plan_pages"/>
+                        <param name="write_planned" value="eekes_ai_content.action.write_planned"/>
+                        <param name="analyze_blocks" value="eekes_ai_content.action.analyze_blocks"/>
+                    </param>
+                </params>
+            </filter>
+        </property>
+
+        <property name="status" visibility="yes" translation="eekes_ai_content.status">
+            <field-name>status</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+            <transformer type="translation">
+                <params>
+                    <param name="prefix" value="eekes_ai_content.status."/>
+                </params>
+            </transformer>
+            <filter type="select">
+                <params>
+                    <param name="options" type="collection">
+                        <param name="succeeded" value="eekes_ai_content.status.succeeded"/>
+                        <param name="failed" value="eekes_ai_content.status.failed"/>
+                        <param name="running" value="eekes_ai_content.status.running"/>
+                        <param name="pending" value="eekes_ai_content.status.pending"/>
+                    </param>
+                </params>
+            </filter>
+        </property>
+
+        <concatenation-property name="user" visibility="yes" translation="eekes_ai_content.user" sortable="false">
+            <field>
+                <field-name>firstName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+                <joins ref="user"/>
+            </field>
+            <field>
+                <field-name>lastName</field-name>
+                <entity-name>%sulu.model.contact.class%</entity-name>
+                <joins ref="user"/>
+            </field>
+        </concatenation-property>
+
+        <property name="webspaceKey" visibility="yes" translation="eekes_ai_content.webspace">
+            <field-name>webspaceKey</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+            <filter type="text"/>
+        </property>
+
+        <property name="locale" visibility="yes" translation="sulu_admin.language">
+            <field-name>locale</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="formKey" visibility="no" translation="eekes_ai_content.form">
+            <field-name>formKey</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="resourceId" visibility="no" translation="eekes_ai_content.resource">
+            <field-name>resourceId</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="model" visibility="yes" translation="eekes_ai_content.model">
+            <field-name>model</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+            <filter type="text"/>
+        </property>
+
+        <property name="inputTokens" visibility="no" type="number" translation="eekes_ai_content.input_tokens">
+            <field-name>inputTokens</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="outputTokens" visibility="no" type="number" translation="eekes_ai_content.output_tokens">
+            <field-name>outputTokens</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="cacheReadTokens" visibility="no" type="number" translation="eekes_ai_content.cache_read_tokens">
+            <field-name>cacheReadTokens</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="totalTokens" visibility="always" type="number" translation="eekes_ai_content.total_tokens">
+            <field-name>totalTokens</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="requests" visibility="no" type="number" translation="eekes_ai_content.requests">
+            <field-name>requests</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="cost" visibility="always" type="number" translation="eekes_ai_content.cost">
+            <field-name>cost</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="currency" visibility="no" translation="eekes_ai_content.currency">
+            <field-name>currency</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="durationMs" visibility="yes" type="number" translation="eekes_ai_content.duration_ms">
+            <field-name>durationMs</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+
+        <property name="prompt" visibility="no" translation="eekes_ai_content.prompt">
+            <field-name>prompt</field-name>
+            <entity-name>Eekes\Sulu\AiContentBundle\Domain\Entity\AiRun</entity-name>
+        </property>
+    </properties>
+</list>

@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+    <key>default</key>
+
+    <view>pages/default</view>
+    <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
+    <cacheLifetime>604800</cacheLifetime>
+
+    <meta>
+        <title lang="en">Default</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta><title lang="en">Title</title></meta>
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="route" mandatory="true">
+            <meta><title lang="en">URL</title></meta>
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <block name="blocks" default-type="hero" minOccurs="0" maxOccurs="8">
+            <meta><title lang="en">Content</title></meta>
+            <types>
+                <type ref="hero"/>
+                <type name="text">
+                    <meta><title lang="en">Text</title></meta>
+                    <properties>
+                        <property name="title" type="text_line"><meta><title lang="en">Title</title></meta></property>
+                        <property name="text" type="text_editor" mandatory="true"><meta><title lang="en">Text</title></meta></property>
+                        <property name="theme" type="single_select">
+                            <meta><title lang="en">Theme</title></meta>
+                            <params>
+                                <param name="values" type="collection">
+                                    <param name="plain"><meta><title lang="en">Plain</title></meta></param>
+                                    <param name="boxed"><meta><title lang="en">Boxed</title></meta></param>
+                                </param>
+                            </params>
+                        </property>
+                    </properties>
+                </type>
+                <type name="faq_snippets">
+                    <meta><title lang="en">FAQ from snippets</title></meta>
+                    <properties>
+                        <property name="title" type="text_line"><meta><title lang="en">Title</title></meta></property>
+                        <property name="items" type="snippet_selection">
+                            <meta><title lang="en">Questions</title></meta>
+                            <params>
+                                <param name="templateKeys" value="faq"/>
+                            </params>
+                        </property>
+                    </properties>
+                </type>
+                <type name="faq">
+                    <meta><title lang="en">FAQ</title></meta>
+                    <properties>
+                        <property name="title" type="text_line"><meta><title lang="en">Title</title></meta></property>
+                        <block name="questions" default-type="question" minOccurs="1">
+                            <meta><title lang="en">Questions</title></meta>
+                            <types>
+                                <type name="question">
+                                    <meta><title lang="en">Question</title></meta>
+                                    <properties>
+                                        <property name="question" type="text_line" mandatory="true"><meta><title lang="en">Question</title></meta></property>
+                                        <property name="answer" type="text_editor" mandatory="true"><meta><title lang="en">Answer</title></meta></property>
+                                    </properties>
+                                </type>
+                            </types>
+                        </block>
+                    </properties>
+                </type>
+            </types>
+        </block>
+
+        <property name="related" type="page_selection">
+            <meta><title lang="en">Related pages</title></meta>
+        </property>
+
+        <property name="newsletter" type="checkbox">
+            <meta><title lang="en">Show the newsletter form</title></meta>
+        </property>
+    </properties>
+</template>

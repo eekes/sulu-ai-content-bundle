@@ -1,0 +1,107 @@
+/* Colors copied from the palette of sulu-admin-bundle, which cannot be imported from outside of that package. */
+$primary: #52b6ca;
+$primaryLight: #e5f4f7;
+$dark: #112a46;
+$border: #ccc;
+$borderLight: #e5e5e5;
+$background: #fff;
+$text: #333;
+$textMuted: #6e6e6e;
+$radius: 3px;
+
+.container {
+    position: relative;
+}
+
+.trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 180px;
+    padding: 3px 8px;
+    border: 1px solid transparent;
+    border-radius: $radius;
+    background: transparent;
+    color: $text;
+    font-size: 12px;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $border;
+    }
+}
+
+.triggerOpen {
+    border-color: $primary;
+    background: $primaryLight;
+}
+
+.triggerText {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 1;
+    min-width: 220px;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 4px 0;
+    background: $background;
+    border: 1px solid $border;
+    border-radius: $radius;
+    box-shadow: 0 4px 16px rgba(17, 42, 70, .15);
+}
+
+.section + .section {
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid $borderLight;
+}
+
+.sectionTitle {
+    padding: 4px 12px 2px;
+    color: $textMuted;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    color: $text;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+        background: $primaryLight;
+        color: $dark;
+        outline: none;
+    }
+
+    &:disabled {
+        color: $textMuted;
+        opacity: .6;
+        cursor: default;
+    }
+}
+
+.itemIcon {
+    display: inline-flex;
+    justify-content: center;
+    width: 14px;
+    color: $primary;
+}

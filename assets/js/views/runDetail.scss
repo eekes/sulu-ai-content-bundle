@@ -1,0 +1,245 @@
+/* Colors copied from the palette of sulu-admin-bundle, which cannot be imported from outside of that package. */
+$primary: #52b6ca;
+$primaryLight: #e5f4f7;
+$dark: #112a46;
+$border: #ccc;
+$borderLight: #e5e5e5;
+$background: #fff;
+$backgroundMuted: #f5f5f5;
+$text: #333;
+$textMuted: #6e6e6e;
+$warning: #cf3939;
+$success: #6ac86b;
+$radius: 3px;
+
+.page {
+    max-width: 1000px;
+    padding: 40px 60px;
+    color: $text;
+    font-size: 14px;
+    line-height: 1.5;
+
+    p {
+        margin: 0 0 6px;
+    }
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    h1 {
+        margin: 0 0 4px;
+        color: $dark;
+        font-size: 24px;
+    }
+}
+
+.muted {
+    color: $textMuted;
+}
+
+.status {
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: $backgroundMuted;
+    color: $dark;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.succeeded {
+    background: rgba($success, .18);
+}
+
+.failed {
+    background: rgba($warning, .14);
+    color: $warning;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.stat {
+    padding: 12px 14px;
+    border: 1px solid $borderLight;
+    border-radius: 6px;
+    background: $background;
+}
+
+.statLabel {
+    color: $textMuted;
+    font-size: 12px;
+}
+
+.statValue {
+    color: $dark;
+    font-size: 20px;
+    font-weight: bold;
+    word-break: break-all;
+}
+
+.statValueText {
+    font-size: 15px;
+    word-break: normal;
+}
+
+.statDetail {
+    color: $textMuted;
+    font-size: 12px;
+}
+
+.errorBox {
+    margin-bottom: 24px;
+    padding: 12px 14px;
+    border: 1px solid $warning;
+    border-radius: 6px;
+    color: $warning;
+}
+
+.section {
+    margin-bottom: 28px;
+
+    h2 {
+        margin: 0 0 8px;
+        color: $dark;
+        font-size: 16px;
+    }
+}
+
+.card {
+    padding: 14px 16px;
+    border: 1px solid $borderLight;
+    border-radius: 6px;
+    background: $background;
+}
+
+.list {
+    margin: 6px 0;
+    padding-left: 20px;
+
+    li {
+        margin-bottom: 4px;
+    }
+}
+
+.tag {
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: 10px;
+    background: $primaryLight;
+    color: $dark;
+    font-size: 11px;
+}
+
+.warnings {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    color: $warning;
+}
+
+.tools {
+    margin: 0;
+    padding-left: 18px;
+
+    code {
+        color: $dark;
+    }
+}
+
+.details {
+    margin-bottom: 6px;
+
+    summary {
+        color: $dark;
+        cursor: pointer;
+    }
+}
+
+.code {
+    overflow-x: auto;
+    max-height: 480px;
+    margin: 6px 0 0;
+    padding: 10px 12px;
+    border-radius: $radius;
+    background: $backgroundMuted;
+    font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.transcriptMessage {
+    margin: 6px 0 12px;
+    padding: 12px 14px;
+    border: 1px solid $borderLight;
+    border-radius: 6px;
+    background: $background;
+}
+
+.transcriptText {
+    margin: 6px 0;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* JSON colours */
+
+.key {
+    color: $dark;
+    font-weight: bold;
+}
+
+.string {
+    color: #2f7d4f;
+}
+
+.number {
+    color: #b0562b;
+}
+
+.literal {
+    color: #7a3fa0;
+}
+
+.conversation {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+.user {
+    align-self: flex-end;
+    background: $primaryLight;
+}
+
+.assistant {
+    align-self: flex-start;
+    border-color: $borderLight;
+    background: $background;
+}
+
+.current {
+    border-color: $primary;
+}
+
+.bubbleUsage {
+    margin-top: 6px;
+    color: $textMuted;
+    font-size: 11px;
+}

@@ -1,0 +1,151 @@
+/* Colors copied from the palette of sulu-admin-bundle, which cannot be imported from outside of that package. */
+$primary: #52b6ca;
+$primaryLight: #e5f4f7;
+$dark: #112a46;
+$border: #ccc;
+$borderLight: #e5e5e5;
+$background: #fff;
+$backgroundMuted: #f5f5f5;
+$textMuted: #6e6e6e;
+$warning: #cf3939;
+$success: #6ac86b;
+$radius: 3px;
+
+.plan {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.planItem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 8px;
+    border: 1px solid $borderLight;
+    border-radius: $radius;
+    background: $backgroundMuted;
+}
+
+.planItemHeader {
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    gap: 4px;
+}
+
+.planTitle {
+    flex: 1;
+    padding: 4px 6px;
+    border: 1px solid $border;
+    border-radius: $radius;
+    font-weight: bold;
+}
+
+.planField {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 11px;
+    color: $textMuted;
+
+    select {
+        padding: 3px 4px;
+        border: 1px solid $border;
+        border-radius: $radius;
+        background: $background;
+        font-size: 12px;
+    }
+}
+
+.planBrief {
+    grid-column: 1 / -1;
+    padding: 4px 6px;
+    border: 1px solid $border;
+    border-radius: $radius;
+    font: inherit;
+    resize: vertical;
+}
+
+.planSummary {
+    margin: 4px 0 0;
+    padding-left: 18px;
+    color: $textMuted;
+}
+
+.planNote {
+    color: $textMuted;
+    font-size: 12px;
+}
+
+.progress {
+    margin: 8px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.progressItem {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid $borderLight;
+}
+
+.progressIcon {
+    display: flex;
+    flex: 0 0 16px;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+}
+
+.progressTitle {
+    /* a long state (an error) goes below the title instead of squeezing it */
+    flex: 1 1 160px;
+    min-width: 0;
+    font-weight: bold;
+    color: $dark;
+}
+
+.progressState {
+    display: flex;
+    flex: 0 1 auto;
+    margin-left: auto;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 6px;
+    color: $textMuted;
+    font-size: 12px;
+    text-align: right;
+}
+
+.progressDone {
+    color: $success;
+}
+
+.progressFailed {
+    color: $warning;
+}
+
+.webspace {
+    padding: 2px 4px;
+    border: 1px solid $border;
+    border-radius: $radius;
+    font-size: 12px;
+}
+
+/* the page a plan of articles creates for them to go below */
+.newPage {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: $radius;
+    background: $primaryLight;
+    color: $dark;
+    font-size: 11px;
+    font-weight: normal;
+    white-space: nowrap;
+}

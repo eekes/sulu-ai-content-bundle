@@ -1,0 +1,669 @@
+/* Colors copied from the palette of sulu-admin-bundle, which cannot be imported from outside of that package. */
+$primary: #52b6ca;
+$primaryLight: #e5f4f7;
+$dark: #112a46;
+$border: #ccc;
+$borderLight: #e5e5e5;
+$background: #fff;
+$backgroundMuted: #f5f5f5;
+$text: #333;
+$textMuted: #6e6e6e;
+$warning: #cf3939;
+$radius: 3px;
+
+.panel {
+    position: fixed;
+    bottom: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    width: 420px;
+    max-width: calc(100vw - 40px);
+    height: min(720px, calc(100vh - 140px));
+    background: $background;
+    border: 1px solid $border;
+    border-radius: 6px;
+    box-shadow: 0 8px 30px rgba(17, 42, 70, .18);
+    color: $text;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.right {
+    right: 20px;
+}
+
+.left {
+    left: 20px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    border-bottom: 1px solid $borderLight;
+}
+
+.headerIcon {
+    color: $primary;
+    font-size: 16px;
+}
+
+.title {
+    flex: 1;
+    font-weight: bold;
+    color: $dark;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+
+    p {
+        margin: 0 0 6px;
+    }
+}
+
+.intro {
+    color: $textMuted;
+}
+
+.hint {
+    padding: 8px;
+    background: $backgroundMuted;
+    border-radius: $radius;
+}
+
+.quickActions {
+    display: grid;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.quickAction {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid $borderLight;
+    border-radius: $radius;
+    background: $background;
+    color: $text;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $primary;
+        background: $primaryLight;
+    }
+
+    span {
+        display: flex;
+        flex-direction: column;
+    }
+
+    small {
+        color: $textMuted;
+    }
+}
+
+.message {
+    margin-bottom: 12px;
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+.user {
+    margin-left: 40px;
+    background: $primaryLight;
+}
+
+.assistant {
+    margin-right: 20px;
+    background: $backgroundMuted;
+}
+
+.error {
+    border: 1px solid $warning;
+    color: $warning;
+}
+
+.usage {
+    margin-top: 6px;
+    color: $textMuted;
+    font-size: 11px;
+}
+
+.questions {
+    margin: 8px 0 0;
+    padding-left: 18px;
+
+    li {
+        margin-bottom: 8px;
+    }
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.chip {
+    padding: 3px 10px;
+    border: 1px solid $primary;
+    border-radius: 12px;
+    background: $background;
+    color: $dark;
+    font-size: 12px;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+        background: $primaryLight;
+    }
+
+    &:disabled {
+        opacity: .5;
+        cursor: default;
+    }
+}
+
+.outline {
+    margin-top: 8px;
+}
+
+.outlineTemplate {
+    margin-bottom: 6px;
+}
+
+.outlineBlocks {
+    margin: 0 0 10px;
+    padding-left: 20px;
+}
+
+.outlineBlock {
+    margin-bottom: 8px;
+}
+
+.outlineBlockHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.outlineType {
+    font-weight: bold;
+}
+
+.outlineActions {
+    display: flex;
+}
+
+.outlinePurpose {
+    width: 100%;
+    padding: 4px 6px;
+    border: 1px solid $border;
+    border-radius: $radius;
+    font: inherit;
+    resize: vertical;
+}
+
+.content {
+    margin-top: 8px;
+}
+
+.changed {
+    color: $textMuted;
+}
+
+.warnings {
+    margin: 6px 0;
+    padding-left: 18px;
+    color: $warning;
+    font-size: 12px;
+}
+
+.contentActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.appliedState {
+    color: $textMuted;
+    font-size: 12px;
+}
+
+.running {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: $textMuted;
+
+    span {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.budget {
+    padding: 4px 12px;
+    border-top: 1px solid $borderLight;
+    color: $textMuted;
+    font-size: 11px;
+}
+
+.composer {
+    padding: 10px 12px;
+    border-top: 1px solid $borderLight;
+}
+
+.focus {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+
+    select {
+        flex: 1;
+        min-width: 0;
+        padding: 3px;
+        border: 1px solid $border;
+        border-radius: $radius;
+    }
+}
+
+.input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid $border;
+    border-radius: $radius;
+    font: inherit;
+    resize: vertical;
+
+    &:focus {
+        border-color: $primary;
+        outline: none;
+    }
+}
+
+.composerFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+
+.shortcut {
+    color: $textMuted;
+    font-size: 11px;
+}
+
+/* Question steps */
+
+.stepper {
+    margin-top: 10px;
+    padding: 12px;
+    border: 1px solid $borderLight;
+    border-radius: 6px;
+    background: $background;
+}
+
+.stepperProgress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.stepperDot {
+    flex: 1;
+    height: 4px;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    background: $borderLight;
+    cursor: pointer;
+}
+
+.stepperDotDone {
+    background: $primary;
+    opacity: .5;
+}
+
+.stepperDotActive {
+    background: $primary;
+}
+
+.stepperDotReview {
+    flex: 0 0 18px;
+}
+
+.stepperCounter {
+    margin-bottom: 4px;
+    color: $textMuted;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.stepperQuestion {
+    margin-bottom: 10px;
+    color: $dark;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.stepperOptions {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.stepperOption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border: 1px solid $border;
+    border-radius: $radius;
+    background: $background;
+    color: $text;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+        border-color: $primary;
+    }
+}
+
+.stepperOptionPicked {
+    border-color: $primary;
+    background: $primaryLight;
+}
+
+.stepperMark {
+    flex: 0 0 14px;
+    height: 14px;
+    border: 1px solid $border;
+    border-radius: 50%;
+    background: $background;
+
+    .stepperOptionPicked & {
+        border: 4px solid $primary;
+    }
+}
+
+.stepperMarkMultiple {
+    border-radius: 2px;
+
+    .stepperOptionPicked & {
+        border: 0;
+        background: $primary;
+    }
+}
+
+.stepperCustom {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px dashed $border;
+    border-radius: $radius;
+    font: inherit;
+
+    &:focus {
+        border-style: solid;
+        border-color: $primary;
+        outline: none;
+    }
+}
+
+.stepperActions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    span {
+        display: flex;
+        gap: 8px;
+    }
+}
+
+.stepperLink {
+    padding: 6px 4px;
+    border: 0;
+    background: none;
+    color: $textMuted;
+    font: inherit;
+    cursor: pointer;
+
+    &:disabled {
+        visibility: hidden;
+    }
+}
+
+.stepperNext {
+    padding: 6px 14px;
+    border: 0;
+    border-radius: $radius;
+    background: $primary;
+    color: $background;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:disabled {
+        opacity: .4;
+        cursor: default;
+    }
+}
+
+.stepperReview {
+    margin: 0 0 8px;
+    padding: 0;
+    list-style: none;
+}
+
+.stepperReviewItem {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 6px 8px;
+    border: 0;
+    border-bottom: 1px solid $borderLight;
+    background: none;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+        background: $backgroundMuted;
+    }
+}
+
+.stepperReviewQuestion {
+    color: $textMuted;
+    font-size: 12px;
+}
+
+.stepperReviewAnswer {
+    color: $text;
+}
+
+.stepperReviewSkipped {
+    color: $textMuted;
+    font-style: italic;
+}
+
+.stepperNote {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid $border;
+    border-radius: $radius;
+    font: inherit;
+    resize: vertical;
+}
+
+.stepperRemember {
+    margin: -6px 0 10px;
+    color: $textMuted;
+    font-size: 11px;
+}
+
+/* History */
+
+.hidden {
+    display: none;
+}
+
+.history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.historyNew {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    border: 1px dashed $border;
+    border-radius: $radius;
+    background: $background;
+    color: $dark;
+    font: inherit;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $primary;
+    }
+}
+
+.historyItem {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 6px;
+    padding: 8px 10px;
+    border: 1px solid $borderLight;
+    border-radius: $radius;
+    background: $background;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    small {
+        color: $textMuted;
+    }
+
+    &:hover {
+        border-color: $primary;
+    }
+}
+
+.historyItemActive {
+    border-color: $primary;
+    background: $primaryLight;
+}
+
+.historyTitle {
+    color: $text;
+}
+
+/* Snippets */
+
+.snippets {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border: 1px solid $borderLight;
+    border-radius: $radius;
+    background: $background;
+}
+
+.snippetsTitle {
+    margin-bottom: 6px;
+    color: $dark;
+    font-weight: bold;
+}
+
+.snippet {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 4px 0;
+    cursor: pointer;
+
+    span {
+        display: flex;
+        flex-direction: column;
+    }
+
+    small {
+        color: $textMuted;
+    }
+}
+
+.snippetOff strong {
+    color: $textMuted;
+    text-decoration: line-through;
+}
+
+.snippetsNote {
+    margin-top: 6px;
+    color: $textMuted;
+    font-size: 11px;
+}
+
+.outlineSnippets {
+    margin: 4px 0 6px;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
+
+    li {
+        margin-bottom: 2px;
+    }
+}
+
+.snippetReuse,
+.snippetNew {
+    display: inline-block;
+    margin-right: 6px;
+    padding: 0 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.snippetReuse {
+    background: $primaryLight;
+    color: $dark;
+}
+
+.snippetNew {
+    background: #fdf1d8;
+    color: #8a5a00;
+}
+
+.notice {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-left: 3px solid #e0a100;
+    border-radius: $radius;
+    background: #fdf6e3;
+    color: $text;
+}
+
+.quickAction:disabled,
+.chip:disabled,
+.stepperOption:disabled {
+    opacity: .5;
+    cursor: default;
+    pointer-events: none;
+}
