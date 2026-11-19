@@ -50,8 +50,8 @@ abstract class FunctionalTestCase extends SuluTestCase
             unlink($catalog);
         }
 
-        // the assistant reads only the pages its editor may see
-        self::giveTestUserRole('Editor', ['sulu.webspaces.website' => 127]);
+        // the assistant reads only the pages and media its editor may see
+        self::giveTestUserRole('Editor', ['sulu.webspaces.website' => 127, 'sulu.media.collections' => 127]);
     }
 
     /**
@@ -87,6 +87,21 @@ abstract class FunctionalTestCase extends SuluTestCase
         $entityManager->flush();
 
         return $role;
+    }
+
+    /**
+     * Takes every role away from the test user, to give it others.
+     */
+    protected static function removeTestUserRoles(): void
+    {
+        $user = self::testUser();
+
+        foreach ($user->getUserRoles() as $userRole) {
+            $user->removeUserRole($userRole);
+            self::entityManager()->remove($userRole);
+        }
+
+        self::entityManager()->flush();
     }
 
     protected static function testUser(): User

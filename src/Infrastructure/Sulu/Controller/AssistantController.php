@@ -26,6 +26,7 @@ use Eekes\Sulu\AiContentBundle\Infrastructure\Symfony\EventListener\DeferredRunD
 use Psr\Clock\ClockInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
+use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -70,6 +71,7 @@ final class AssistantController extends AbstractAdminController
         private readonly TranslatorInterface $translator,
         private readonly ClockInterface $clock,
         private readonly AssistantScope $scope,
+        private readonly WebspaceManagerInterface $webspaceManager,
     ) {
         parent::__construct($securityChecker);
     }
@@ -88,11 +90,16 @@ final class AssistantController extends AbstractAdminController
         }
 
         $resourceId = $payload['resourceId'] ?? null;
+        $webspace = \is_string($payload['webspace'] ?? null) && $payload['webspace'] !== '' ? $payload['webspace'] : null;
+
+        if ($webspace !== null && $this->webspaceManager->findWebspaceByKey($webspace) === null) {
+            throw new NotFoundHttpException(\sprintf('The webspace "%s" does not exist.', $webspace));
+        }
 
         $conversation = new Conversation(
             $formKey,
             $locale,
-            \is_string($payload['webspace'] ?? null) && $payload['webspace'] !== '' ? $payload['webspace'] : null,
+            $webspace,
             \is_string($resourceId) || \is_int($resourceId) ? (string) $resourceId : null,
             $this->currentUserId(),
         );

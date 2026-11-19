@@ -301,6 +301,37 @@ final class AssistantApiTest extends FunctionalTestCase
         self::assertCount(2, self::runs());
     }
 
+    public function testAConversationNeedsAWebspaceThatExists(): void
+    {
+        $this->client->jsonRequest('POST', '/admin/api/ai-content/conversations', ['formKey' => 'page', 'locale' => 'en', 'webspace' => 'made-up', 'resourceId' => null]);
+
+        self::assertResponseStatusCodeSame(404);
+    }
+
+    public function testTheAiContextOfAWebspaceTheEditorMayNotViewStaysOut(): void
+    {
+        $context = new WebspaceContext('website', 'en');
+        $context->setText('siteDescription', 'A bakery in Ghent with a secret recipe.');
+        self::entityManager()->persist($context);
+        self::entityManager()->flush();
+        self::removeTestUserRoles();
+        self::giveTestUserRole('Writer', ['sulu.webspaces.website' => 0]);
+
+        self::script()->reply(ModelScript::json(['type' => 'message', 'message' => 'Hi']));
+        $this->sendTurn($this->startConversation(), [
+            'action' => 'chat',
+            'message' => 'Hello',
+            'template' => 'default',
+            'answers' => [['question' => 'What is the company called?', 'answer' => 'Bakkerij Test', 'remember' => true]],
+        ]);
+
+        self::assertStringNotContainsString('secret recipe', self::script()->lastPrompt());
+        self::entityManager()->clear();
+        $stored = self::entityManager()->getRepository(WebspaceContext::class)->findOneBy(['webspaceKey' => 'website', 'locale' => 'en']);
+        self::assertInstanceOf(WebspaceContext::class, $stored);
+        self::assertSame([], $stored->getFacts(), 'no facts are written to a webspace the editor may not view');
+    }
+
     public function testAConversationIsPrivateToWhoStartedIt(): void
     {
         $conversation = $this->startConversation();

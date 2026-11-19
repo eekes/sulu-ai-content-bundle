@@ -10,6 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Eekes\Sulu\AiContentBundle\Application\Assistant\AssistantScope;
 use Eekes\Sulu\AiContentBundle\Application\Content\PageFinderInterface;
 use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Page\Domain\Model\Page;
 use Sulu\Page\Domain\Model\PageDimensionContentInterface;
 use Sulu\Page\Domain\Model\PageInterface;
 use Sulu\Route\Domain\Model\Route;
@@ -26,7 +27,7 @@ final class DoctrinePageFinder implements PageFinderInterface
 {
     public function __construct(
         private readonly ManagerRegistry $registry,
-        private readonly PageAccess $access,
+        private readonly SuluPermissions $access,
         private readonly AssistantScope $scope,
     ) {
     }
@@ -43,7 +44,7 @@ final class DoctrinePageFinder implements PageFinderInterface
     {
         $userId = $this->scope->getUserId();
 
-        if ($webspaceKey !== null && !$this->access->canView($userId, $webspaceKey, $locale)) {
+        if ($webspaceKey !== null && !$this->access->canUseWebspace($userId, $webspaceKey, $locale)) {
             return [];
         }
 
@@ -65,13 +66,13 @@ final class DoctrinePageFinder implements PageFinderInterface
             $queryBuilder->andWhere('page.webspaceKey = :webspaceKey')->setParameter('webspaceKey', $webspaceKey);
         }
 
-        $this->access->restrict($queryBuilder, 'page', $userId);
+        $this->access->restrict($queryBuilder, 'page', $userId, Page::class, 'uuid');
 
         /** @var list<array{uuid: string, title: null|string, template: null|string, webspaceKey: string}> $rows */
         $rows = $queryBuilder->getQuery()->getArrayResult();
 
         if ($webspaceKey === null) {
-            $rows = array_values(array_filter($rows, fn (array $row) => $this->access->canView($userId, $row['webspaceKey'], $locale)));
+            $rows = array_values(array_filter($rows, fn (array $row) => $this->access->canUseWebspace($userId, $row['webspaceKey'], $locale)));
         }
 
         return array_map(static fn (array $row) => ['uuid' => $row['uuid'], 'title' => $row['title'] ?? '', 'template' => $row['template']], $rows);
@@ -81,7 +82,7 @@ final class DoctrinePageFinder implements PageFinderInterface
     {
         $userId = $this->scope->getUserId();
 
-        if (!$this->access->canView($userId, $webspaceKey, $locale)) {
+        if (!$this->access->canUseWebspace($userId, $webspaceKey, $locale)) {
             return [];
         }
 
@@ -98,7 +99,7 @@ final class DoctrinePageFinder implements PageFinderInterface
             ->setParameter('webspaceKey', $webspaceKey)
             ->orderBy('page.lft', 'ASC')
             ->setMaxResults($limit);
-        $this->access->restrict($queryBuilder, 'page', $userId);
+        $this->access->restrict($queryBuilder, 'page', $userId, Page::class, 'uuid');
 
         /** @var list<array{uuid: string, title: null|string, template: null|string, url: null|string, depth: int|string}> $rows */
         $rows = $queryBuilder->getQuery()->getArrayResult();
@@ -180,10 +181,10 @@ final class DoctrinePageFinder implements PageFinderInterface
             ->setParameter('locale', $locale)
             ->setParameter('stage', DimensionContentInterface::STAGE_DRAFT)
             ->setMaxResults(1);
-        $this->access->restrict($queryBuilder, 'page', $userId);
+        $this->access->restrict($queryBuilder, 'page', $userId, Page::class, 'uuid');
         $content = $queryBuilder->getQuery()->getOneOrNullResult();
 
-        if (!$content instanceof PageDimensionContentInterface || !$this->access->canView($userId, $content->getResource()->getWebspaceKey(), $locale)) {
+        if (!$content instanceof PageDimensionContentInterface || !$this->access->canUseWebspace($userId, $content->getResource()->getWebspaceKey(), $locale)) {
             return null;
         }
 

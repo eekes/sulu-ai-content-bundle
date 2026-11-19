@@ -10,6 +10,7 @@ use Eekes\Sulu\AiContentBundle\Application\Catalog\FieldDescription;
 use Eekes\Sulu\AiContentBundle\Application\Catalog\TemplateInspectorInterface;
 use Eekes\Sulu\AiContentBundle\Application\Catalog\TypeDescription;
 use Eekes\Sulu\AiContentBundle\Application\Content\PageFinderInterface;
+use Eekes\Sulu\AiContentBundle\Application\Content\WebspaceAccessInterface;
 use Eekes\Sulu\AiContentBundle\Application\Model\ModelRegistry;
 use Eekes\Sulu\AiContentBundle\Application\Prompt\SystemPromptBuilder;
 use Eekes\Sulu\AiContentBundle\Application\Prompt\TurnPromptBuilder;
@@ -56,6 +57,7 @@ class AssistantRunner
         private readonly ConversationRepository $conversationRepository,
         private readonly PageFinderInterface $pageFinder,
         private readonly UsageRecorder $usageRecorder,
+        private readonly WebspaceAccessInterface $webspaceAccess,
         private readonly PlaceholderFinder $placeholderFinder = new PlaceholderFinder(),
         private readonly int $siteStructureLimit = 150,
         private readonly int $maxPlanItems = 12,
@@ -169,7 +171,10 @@ class AssistantRunner
     private function website(Conversation $conversation): array
     {
         $locale = $conversation->locale;
-        $context = $conversation->webspaceKey === null ? null : $this->webspaceContextRepository->findOneByWebspace($conversation->webspaceKey, $locale);
+        // the AI context of a webspace the editor does not work in stays out of the prompt
+        $context = $conversation->webspaceKey === null || !$this->webspaceAccess->canUseWebspace($conversation->userId, $conversation->webspaceKey, $locale)
+            ? null
+            : $this->webspaceContextRepository->findOneByWebspace($conversation->webspaceKey, $locale);
         $examplePages = [];
 
         foreach ($context === null ? [] : $context->examplePages as $uuid) {

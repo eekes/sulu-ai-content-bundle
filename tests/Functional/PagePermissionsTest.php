@@ -78,14 +78,7 @@ final class PagePermissionsTest extends FunctionalTestCase
 
     public function testAnEditorWhoMayNotViewTheWebspaceGetsNoPages(): void
     {
-        $user = self::testUser();
-
-        foreach ($user->getUserRoles() as $userRole) {
-            $user->removeUserRole($userRole);
-            self::entityManager()->remove($userRole);
-        }
-
-        self::entityManager()->flush();
+        self::removeTestUserRoles();
         self::giveTestUserRole('Writer', ['sulu.webspaces.website' => 0]);
 
         $finder = $this->finderFor(self::testUser()->getId());

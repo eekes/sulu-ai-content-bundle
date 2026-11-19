@@ -25,6 +25,7 @@ use Eekes\Sulu\AiContentBundle\Application\Content\MediaFinderInterface;
 use Eekes\Sulu\AiContentBundle\Application\Content\PageFinderInterface;
 use Eekes\Sulu\AiContentBundle\Application\Content\SmartContentProvidersInterface;
 use Eekes\Sulu\AiContentBundle\Application\Content\TaxonomyFinderInterface;
+use Eekes\Sulu\AiContentBundle\Application\Content\WebspaceAccessInterface;
 use Eekes\Sulu\AiContentBundle\Application\Message\RunAssistantHandler;
 use Eekes\Sulu\AiContentBundle\Application\Model\ModelRegistry;
 use Eekes\Sulu\AiContentBundle\Application\Prompt\SystemPromptBuilder;
@@ -51,8 +52,8 @@ use Eekes\Sulu\AiContentBundle\Domain\Repository\ConversationRepository;
 use Eekes\Sulu\AiContentBundle\Domain\Repository\WebspaceContextRepository;
 use Eekes\Sulu\AiContentBundle\Infrastructure\Sulu\Finder\DoctrinePageFinder;
 use Eekes\Sulu\AiContentBundle\Infrastructure\Sulu\Finder\DoctrineTaxonomyFinder;
-use Eekes\Sulu\AiContentBundle\Infrastructure\Sulu\Finder\PageAccess;
 use Eekes\Sulu\AiContentBundle\Infrastructure\Sulu\Finder\SuluMediaFinder;
+use Eekes\Sulu\AiContentBundle\Infrastructure\Sulu\Finder\SuluPermissions;
 use Eekes\Sulu\AiContentBundle\Infrastructure\Sulu\Icon\SuluIconFinder;
 use Eekes\Sulu\AiContentBundle\Infrastructure\Sulu\Metadata\SuluTemplateInspector;
 use Eekes\Sulu\AiContentBundle\Infrastructure\Sulu\SmartContent\SuluSmartContentProviders;
@@ -100,16 +101,17 @@ return static function (ContainerConfigurator $container): void {
         ->args([service('sulu_admin.metadata_provider_registry')]);
     $services->alias(TemplateInspectorInterface::class, SuluTemplateInspector::class);
 
-    $services->set(PageAccess::class)
+    $services->set(SuluPermissions::class)
         ->arg('$accessControlManager', service('sulu_security.access_control_manager'))
         ->arg('$queryEnhancer', service('sulu_security.access_control_query_enhancer'))
         ->arg('$systemStore', service('sulu_security.system_store'))
         ->arg('$permissions', param('sulu_security.permissions'));
+    $services->alias(WebspaceAccessInterface::class, SuluPermissions::class);
     $services->set(DoctrinePageFinder::class);
     $services->alias(PageFinderInterface::class, DoctrinePageFinder::class);
 
     $services->set(SuluMediaFinder::class)
-        ->args([service('sulu_media.media_manager'), service('sulu.repository.media')]);
+        ->arg('$mediaRepository', service('sulu.repository.media'));
     $services->alias(MediaFinderInterface::class, SuluMediaFinder::class);
 
     $services->set(DoctrineTaxonomyFinder::class)

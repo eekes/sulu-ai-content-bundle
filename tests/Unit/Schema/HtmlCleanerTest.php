@@ -22,6 +22,9 @@ final class HtmlCleanerTest extends TestCase
         yield 'safe links stay' => ['<a href="https://example.com" target="_blank">x</a>', '<a href="https://example.com" target="_blank">x</a>'];
         yield 'javascript links lose their target' => ['<a href="javascript:alert(1)">x</a>', '<a>x</a>'];
         yield 'sulu links stay' => ['<sulu-link href="abc-123" provider="page">About</sulu-link>', '<sulu-link href="abc-123" provider="page">About</sulu-link>'];
+        // Sulu's "external" provider prints the href as it is: a javascript: URL would reach the website
+        yield 'sulu links to anything but a page are unwrapped' => ['<p><sulu-link href="javascript:alert(1)" provider="external">Click</sulu-link> <sulu-link href="12" provider="media">File</sulu-link></p>', '<p>Click File</p>'];
+        yield 'a sulu link without provider is a page link' => ['<sulu-link href="abc-123">About</sulu-link>', '<sulu-link href="abc-123">About</sulu-link>'];
         yield 'unicode survives' => ['<p>Brood & banket – café</p>', '<p>Brood &amp; banket – café</p>'];
         yield 'empty stays empty' => ['  ', ''];
     }

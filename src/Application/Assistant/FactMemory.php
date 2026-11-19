@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Eekes\Sulu\AiContentBundle\Application\Assistant;
 
+use Eekes\Sulu\AiContentBundle\Application\Content\WebspaceAccessInterface;
 use Eekes\Sulu\AiContentBundle\Domain\Entity\Conversation;
 use Eekes\Sulu\AiContentBundle\Domain\Entity\WebspaceContext;
 use Eekes\Sulu\AiContentBundle\Domain\Repository\WebspaceContextRepository;
@@ -17,6 +18,7 @@ class FactMemory
 {
     public function __construct(
         private readonly WebspaceContextRepository $contextRepository,
+        private readonly WebspaceAccessInterface $webspaceAccess,
     ) {
     }
 
@@ -29,8 +31,9 @@ class FactMemory
     {
         $facts = array_filter($answers, static fn (array $answer) => $answer['remember'] && trim($answer['answer']) !== '');
 
-        // without a webspace there is no AI context to keep them in
-        if ($facts === [] || $conversation->webspaceKey === null) {
+        // without a webspace there is no AI context to keep them in; an editor who does not work in
+        // the webspace does not write to its context
+        if ($facts === [] || $conversation->webspaceKey === null || !$this->webspaceAccess->canUseWebspace($conversation->userId, $conversation->webspaceKey, $conversation->locale)) {
             return 0;
         }
 

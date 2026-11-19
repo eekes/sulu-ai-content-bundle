@@ -90,7 +90,7 @@ final class HtmlCleaner
 
             $this->cleanChildren($child);
 
-            if (!\array_key_exists($name, self::ALLOWED)) {
+            if (!\array_key_exists($name, self::ALLOWED) || ($name === 'sulu-link' && !self::isPageLink($child))) {
                 while ($child->firstChild !== null) {
                     $node->insertBefore($child->firstChild, $child);
                 }
@@ -106,6 +106,17 @@ final class HtmlCleaner
                 }
             }
         }
+    }
+
+    /**
+     * Only links to pages: Sulu's other link providers - "external" above all, which prints its
+     * href as it is - would let a reply put any URL on the website.
+     */
+    private static function isPageLink(\DOMElement $element): bool
+    {
+        $provider = strtolower(trim($element->getAttribute('provider')));
+
+        return $provider === '' || $provider === 'page';
     }
 
     private function isSafeAttribute(string $element, \DOMAttr $attribute): bool

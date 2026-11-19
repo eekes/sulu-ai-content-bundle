@@ -53,7 +53,8 @@ return static function (ContainerConfigurator $container): void {
         ->tag('monolog.logger', ['channel' => 'ai_content']);
 
     $controller(AssistantController::class)
-        ->arg('$clock', service('clock'));
+        ->arg('$clock', service('clock'))
+        ->arg('$webspaceManager', service('sulu_core.webspace.webspace_manager'));
     $controller(WebspaceContextController::class)
         ->arg('$webspaceManager', service('sulu_core.webspace.webspace_manager'));
     $controller(UsageController::class)
